@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" mat-elevation-z8>
   <mat-toolbar-row class="toolbar-flexbox">
     <div class="input-box">
       <input>
@@ -6,19 +6,19 @@
     <div class="filler"></div>
     <div class="toolbar-main-buttons">
       <span>
-        <button mat-raised-button color="warn">Home</button>
+        <button mat-raised-button color="accent" (click)="lol()">Home</button>
       </span>
       <span>
-        <button mat-raised-button color="warn">Songs</button>
+        <button mat-raised-button color="accent">Songs</button>
       </span>
       <span>
-        <button mat-raised-button color="warn">Artists</button >
+        <button mat-raised-button color="accent">Artists</button >
       </span>
       <span>
-        <button mat-raised-button color="warn">Playlists</button>
+        <button mat-raised-button color="accent">Playlists</button>
       </span>
       <span>
-        <button mat-raised-button color="warn">Queue</button>
+        <button mat-raised-button color="accent">Queue</button>
       </span>
     </div>
     <div class="filler"></div>
@@ -26,7 +26,7 @@
       <button mat-icon-button>
         <mat-icon>settings</mat-icon>
       </button>
-      <span>Zoremeth</span>
+      <p class="current-user">Zoremeth</p> 
       <button mat-icon-button>
         <mat-icon>exit_to_app</mat-icon>
       </button>

@@ -4,9 +4,28 @@
 }
 
 .input-box input {
-    border-radius: 65px;
+    border-radius: 5px;
+    border-style: solid;
 } 
 
 .toolbar-main-buttons button {
-    width: 100px;
+    width: 10vw;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.toolbar-other-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+:host {
+    top: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.current-user {
+    margin: 0;
+    padding-top: 4px;
 }
