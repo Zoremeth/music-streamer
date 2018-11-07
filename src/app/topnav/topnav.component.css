@@ -1,0 +1,12 @@
+.toolbar-flexbox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-box input {
+    border-radius: 65px;
+} 
+
+.toolbar-main-buttons button {
+    width: 100px;
+}
