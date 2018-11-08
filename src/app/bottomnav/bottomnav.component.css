@@ -6,5 +6,10 @@
 
 .bottomnav-flexbox {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.seekbar {
+    width: 70vw;
+    text-align: center;
 }

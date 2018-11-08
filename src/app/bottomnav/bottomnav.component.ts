@@ -9,7 +9,6 @@ import { formatDate } from '@angular/common';
 })
 export class BottomnavComponent implements OnInit {
 
-  playbackStatusIcon = 'play_arrow';
   currentTime = 0;
 
   constructor(public musicService: MusicControlService) { }
@@ -18,12 +17,23 @@ export class BottomnavComponent implements OnInit {
     this.getCurrentTime();
   }
 
+  getSongLength(): number {
+    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    return Math.trunc(musicPlayer.duration);
+  }
+
   getCurrentTime(): void {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     setInterval(() => {
       //Make it properly display time rather than the amount of seconds
       this.currentTime = Math.trunc(musicPlayer.currentTime);
+
     }, 1000);
+  }
+
+  getPlayerStatusIcon(): string {
+    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    return this.musicService.getStatus();
   }
 
   togglePlayback(): void {
@@ -31,15 +41,15 @@ export class BottomnavComponent implements OnInit {
     if (musicPlayer.readyState > 2) {
       if (musicPlayer.paused) {
         musicPlayer.play();
-        this.playbackStatusIcon = 'pause';
       } else {
         musicPlayer.pause();
-        this.playbackStatusIcon = 'play_arrow';
       }
+      this.musicService.getStatus();
     } else {
       alert('No valid music (source) loaded. ' + musicPlayer.readyState);
     }
   }
+    
   test(): void {
     var prompt = window.prompt("Enter a URL", "http://domain.tld/");
     console.log('URL: ' + prompt)

@@ -6,24 +6,35 @@ import { Observable, of } from 'rxjs';
 })
 export class MusicControlService {
 
-  constructor() { }
+  playerStatusIcon = 'play_arrow';
 
-  getCurrentSong(): Observable<String> {
+  constructor() {}
+
+  getCurrentSong(): Observable < String > {
     return of('');
   }
 
   play(streamURL: string): void {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    const musicPlayer = < HTMLAudioElement > document.getElementById('musicplayer');
     musicPlayer.src = streamURL;
-    musicPlayer.load()
-    if(musicPlayer.readyState > 2) {
-      //LOADS TOO FAST, STATE 0 during execution
-      //Perhaps assume that it can never be 0? Would work for a private server 
-      console.log('Playing.');
-      musicPlayer.play();
+    musicPlayer.load(),
+      setTimeout(() => {
+        if (musicPlayer.readyState > 2) {
+          console.log('Playing.');
+          musicPlayer.play();
+        } else {
+          console.log('Couldn\'t play song, error ' + musicPlayer.readyState);
+        }
+      }, 1000);
+  }
+
+  getStatus(): string {
+    const musicPlayer = < HTMLAudioElement > document.getElementById('musicplayer');
+    if(musicPlayer.paused) {
+      this.playerStatusIcon = 'play_arrow';
+    } else {
+      this.playerStatusIcon = 'pause';
     }
-    else {
-      console.log('Couldn\'t play song, error ' + musicPlayer.readyState);
-    }
+    return this.playerStatusIcon;
   }
 }

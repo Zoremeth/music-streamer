@@ -1,6 +1,6 @@
 .toolbar-flexbox {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .input-box input {
@@ -12,6 +12,12 @@
     width: 10vw;
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.toolbar-main-buttons {
+    width: 70vw;
+    display: flex;
+    justify-content: center;
 }
 
 .toolbar-other-buttons {

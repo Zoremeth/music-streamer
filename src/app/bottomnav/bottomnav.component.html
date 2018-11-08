@@ -6,14 +6,14 @@
         <mat-icon>skip_previous</mat-icon>
       </button>
       <button (click)="togglePlayback()" mat-icon-button>
-        <mat-icon>{{playbackStatusIcon}}</mat-icon>
+        <mat-icon>{{getPlayerStatusIcon()}}</mat-icon>
       </button>
       <button mat-icon-button>
         <mat-icon>skip_next</mat-icon>
       </button>
     </div>
     <!-- Doesn't display currentTime variable properly when using pipe | date:'mm:ss' -->
-    <span>Current time: {{currentTime}}/LENGTH</span>
+    <span class="seekbar">Current time: {{currentTime}}/{{getSongLength()}} seconds</span>
     <button (click)="test()" mat-flat-button>Play Music</button>
   </mat-toolbar-row>
 </mat-toolbar>
