@@ -3,3 +3,8 @@
     bottom: 0;
     width: 100%;
 }
+
+.bottomnav-flexbox {
+    display: flex;
+    justify-content: space-between;
+}

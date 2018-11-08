@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$misty-woods-primary: mat-palette($mat-blue-grey, 600);
+$misty-woods-secondary: mat-palette($mat-grey, 600);
+$misty-woods--warn: mat-palette($mat-red, 600);
+
+$misty-woods-theme: mat-light-theme($misty-woods-primary, $misty-woods-secondary);
+
+@include angular-material-theme($misty-woods-theme);

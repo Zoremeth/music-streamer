@@ -1,7 +1,19 @@
 <mat-toolbar color="primary" mat-elevation-z8>
-    <mat-toolbar-row>
-            <audio controls preload="metadata" id="musicplayer">
-                    <source src="" type="audio/flac">
-            </audio>
-    </mat-toolbar-row>
+  <audio preload="metadata" id="musicplayer"></audio>
+  <mat-toolbar-row class="bottomnav-flexbox">
+    <div class="playback-buttons">
+      <button mat-icon-button>
+        <mat-icon>skip_previous</mat-icon>
+      </button>
+      <button (click)="togglePlayback()" mat-icon-button>
+        <mat-icon>{{playbackStatusIcon}}</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>skip_next</mat-icon>
+      </button>
+    </div>
+    <!-- Doesn't display currentTime variable properly when using pipe | date:'mm:ss' -->
+    <span>Current time: {{currentTime}}/LENGTH</span>
+    <button (click)="test()" mat-flat-button>Play Music</button>
+  </mat-toolbar-row>
 </mat-toolbar>
