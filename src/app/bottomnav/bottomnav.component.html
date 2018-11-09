@@ -14,6 +14,10 @@
     </div>
     <!-- Doesn't display currentTime variable properly when using pipe | date:'mm:ss' -->
     <span class="seekbar">Current time: {{currentTime}}/{{getSongLength()}} seconds</span>
+    <button mat-icon-button (click)="toggleMute()">
+            <mat-icon>{{muteStatus}}</mat-icon>
+    </button> 
+    <!-- volume_off -->
     <button (click)="test()" mat-flat-button>Play Music</button>
   </mat-toolbar-row>
 </mat-toolbar>

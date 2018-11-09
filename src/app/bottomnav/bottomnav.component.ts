@@ -10,6 +10,7 @@ import { formatDate } from '@angular/common';
 export class BottomnavComponent implements OnInit {
 
   currentTime = 0;
+  muteStatus = 'volume_up';
 
   constructor(public musicService: MusicControlService) { }
 
@@ -20,6 +21,18 @@ export class BottomnavComponent implements OnInit {
   getSongLength(): number {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     return Math.trunc(musicPlayer.duration);
+  }
+
+  toggleMute(): void {
+    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    // volume_up & volume_off
+    if(musicPlayer.muted) {
+      musicPlayer.muted = false;
+      this.muteStatus = 'volume_up';
+    } else {
+      musicPlayer.muted = true;
+      this.muteStatus = 'volume_off';
+    }
   }
 
   getCurrentTime(): void {

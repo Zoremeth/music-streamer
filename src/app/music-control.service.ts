@@ -18,6 +18,7 @@ export class MusicControlService {
     const musicPlayer = < HTMLAudioElement > document.getElementById('musicplayer');
     musicPlayer.src = streamURL;
     musicPlayer.load(),
+    // Skip checking for availability? Because it's a private server? Do check later? If player hasnt started
       setTimeout(() => {
         if (musicPlayer.readyState > 2) {
           console.log('Playing.');
@@ -25,7 +26,7 @@ export class MusicControlService {
         } else {
           console.log('Couldn\'t play song, error ' + musicPlayer.readyState);
         }
-      }, 1000);
+      }, 2500);
   }
 
   getStatus(): string {
