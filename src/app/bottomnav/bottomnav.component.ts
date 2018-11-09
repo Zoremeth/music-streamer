@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicControlService } from '../music-control.service';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-bottomnav',
@@ -9,8 +8,12 @@ import { formatDate } from '@angular/common';
 })
 export class BottomnavComponent implements OnInit {
 
-  currentTime = 0;
+  currentTime = '00:00';
   muteStatus = 'volume_up';
+  value = 1.0;
+  currentTimeInSeconds = 0;
+  seekbarMax: number;
+  time: number;
 
   constructor(public musicService: MusicControlService) { }
 
@@ -18,30 +21,29 @@ export class BottomnavComponent implements OnInit {
     this.getCurrentTime();
   }
 
-  getSongLength(): number {
+  seek(): void {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    return Math.trunc(musicPlayer.duration);
+    const prompt = window.prompt("Enter time in seconds", "");
+    musicPlayer.currentTime = parseInt(prompt)
   }
 
-  toggleMute(): void {
+  getSongLength(): string {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    // volume_up & volume_off
-    if(musicPlayer.muted) {
-      musicPlayer.muted = false;
-      this.muteStatus = 'volume_up';
+    if (musicPlayer.readyState > 2) {
+      let minutes = Math.trunc(musicPlayer.duration / 60);
+      let seconds = (musicPlayer.duration / 60 - minutes) * 60;
+
+      return "0" + minutes + ":" + Math.trunc(seconds);
     } else {
-      musicPlayer.muted = true;
-      this.muteStatus = 'volume_off';
+      return '00:00';
     }
   }
 
   getCurrentTime(): void {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     setInterval(() => {
-      //Make it properly display time rather than the amount of seconds
-      this.currentTime = Math.trunc(musicPlayer.currentTime);
-
-    }, 1000);
+      this.time = musicPlayer.currentTime
+    })
   }
 
   getPlayerStatusIcon(): string {
@@ -62,10 +64,23 @@ export class BottomnavComponent implements OnInit {
       alert('No valid music (source) loaded. ' + musicPlayer.readyState);
     }
   }
-    
+
+  toggleMute(): void {
+    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    if (musicPlayer.muted) {
+      musicPlayer.muted = false;
+      this.muteStatus = 'volume_up';
+    } else {
+      musicPlayer.muted = true;
+      this.muteStatus = 'volume_off';
+    }
+  }
+
   test(): void {
-    var prompt = window.prompt("Enter a URL", "http://domain.tld/");
+    const prompt = window.prompt("Enter a URL", "http://domain.tld/");
+    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     console.log('URL: ' + prompt)
     this.musicService.play(prompt);
+    this.seekbarMax = Math.trunc(musicPlayer.duration);
   }
 }

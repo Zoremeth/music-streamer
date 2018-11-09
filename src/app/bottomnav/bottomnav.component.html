@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" mat-elevation-z8>
-  <audio preload="metadata" id="musicplayer"></audio>
+  <audio preload="metadata" id="musicplayer" [volume]="value"></audio>
   <mat-toolbar-row class="bottomnav-flexbox">
     <div class="playback-buttons">
       <button mat-icon-button>
@@ -12,12 +12,13 @@
         <mat-icon>skip_next</mat-icon>
       </button>
     </div>
-    <!-- Doesn't display currentTime variable properly when using pipe | date:'mm:ss' -->
-    <span class="seekbar">Current time: {{currentTime}}/{{getSongLength()}} seconds</span>
+    <button mat-flat-button (click)="seek()">Seek</button>
+    <mat-slider min="0" [max]="seekbarMax" value="120"></mat-slider>
+    <span class="seekbar">{{time | seek}}/{{getSongLength()}}</span>
     <button mat-icon-button (click)="toggleMute()">
-            <mat-icon>{{muteStatus}}</mat-icon>
-    </button> 
-    <!-- volume_off -->
+      <mat-icon>{{muteStatus}}</mat-icon>
+    </button>
+    <mat-slider min="0" max="1.0" step="0.05" value="1.0" [(ngModel)]="value"></mat-slider>
     <button (click)="test()" mat-flat-button>Play Music</button>
   </mat-toolbar-row>
 </mat-toolbar>
