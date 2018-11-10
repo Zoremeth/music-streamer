@@ -1,7 +1,25 @@
 <div class="main-flexbox">
     <div class="filler"></div>
     <div class="song-list" color="accent">
-        <button (click)="play('test')" mat-flat-button color="accent">Play Music</button>
+        <table class="song-table">
+            <tr class="song-table">
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+            </tr>
+            <!-- {{song['url']}} -->
+            <tr *ngFor="let song of songs" (click)="play(song['url'])" align="center" class="tr-1">
+                <td>{{song['title']}}</td>
+                <td>{{song['artist']}}</td>
+                <td>{{song['album']}}</td>
+            </tr>
+            <!-- <tr (click)="play('http://localhost/AboutMe.ogg')" align="center">
+                <td>About Me</td>
+                <td>Nicode</td>
+                <td>Nicode - About Me</td>
+            </tr> -->
+        </table>
+        <!-- <button (click)="play('test')" mat-flat-button color="accent">Play Music</button> -->
     </div>
     <div class="filler"></div>
 </div>

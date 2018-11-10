@@ -13,13 +13,24 @@
   height: 100%;
 }
 
+.song-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .filler {
   background-color: #f1f1f1;
   flex: 1;
   width: 15vw;
 }
 
+.tr-1 {
+  color: white;
+  background-color: #757575;
+}
+
 .song-list {
   /* Add code */
   width: 70vw;
+  height: 100%;
 }
