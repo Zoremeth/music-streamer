@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MusicControlService } from '../music-control.service';
+import { MusicControlService } from '../shared/music-control.service';
 
 @Component({
   selector: 'app-bottomnav',
@@ -12,8 +12,8 @@ export class BottomnavComponent implements OnInit {
   muteStatus = 'volume_up';
   value = 1.0;
   currentTimeInSeconds = 0;
-  seekbarMax: number;
-  time: number;
+  seekbarMax = 500;
+  time = 0;
 
   constructor(public musicService: MusicControlService) { }
 
@@ -23,7 +23,7 @@ export class BottomnavComponent implements OnInit {
 
   seek(): void {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    const prompt = window.prompt("Enter time in seconds", "");
+    const prompt = <string>window.prompt("Enter time in seconds", "");
     musicPlayer.currentTime = parseInt(prompt)
   }
 
@@ -43,7 +43,7 @@ export class BottomnavComponent implements OnInit {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     setInterval(() => {
       this.time = musicPlayer.currentTime
-    })
+    }, 1000)
   }
 
   getPlayerStatusIcon(): string {
@@ -76,10 +76,9 @@ export class BottomnavComponent implements OnInit {
     }
   }
 
-  test(): void {
-    const prompt = window.prompt("Enter a URL", "http://domain.tld/");
+  play(streamURL: string): void {
+    const prompt = <string>window.prompt("Enter a URL", "http://domain.tld/");
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    console.log('URL: ' + prompt)
     this.musicService.play(prompt);
     this.seekbarMax = Math.trunc(musicPlayer.duration);
   }

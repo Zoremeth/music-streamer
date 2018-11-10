@@ -11,5 +11,19 @@
 
 .seekbar {
     width: 70vw;
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.seekbar-slider {
+    flex: 0.9 1 auto;
+}
+
+.volume {
+    width: 15vw;
+}
+
+.playback-buttons {
+    width: 15vw;
 }

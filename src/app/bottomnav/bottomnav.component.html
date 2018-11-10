@@ -12,13 +12,17 @@
         <mat-icon>skip_next</mat-icon>
       </button>
     </div>
-    <button mat-flat-button (click)="seek()">Seek</button>
-    <mat-slider min="0" [max]="seekbarMax" value="120"></mat-slider>
-    <span class="seekbar">{{time | seek}}/{{getSongLength()}}</span>
+    <!-- <button mat-flat-button (click)="seek()">Seek</button> -->
+    <div class="seekbar">
+      <mat-slider min="0" [max]="seekbarMax" value="{{time}}" class="seekbar-slider"></mat-slider>
+      <span>{{time | seek}}/{{getSongLength()}}</span>
+    </div>
+    <div class="volume">
     <button mat-icon-button (click)="toggleMute()">
       <mat-icon>{{muteStatus}}</mat-icon>
     </button>
     <mat-slider min="0" max="1.0" step="0.05" value="1.0" [(ngModel)]="value"></mat-slider>
-    <button (click)="test()" mat-flat-button>Play Music</button>
+    </div>
+    <button (click)="play('test')" mat-flat-button>Play Music</button>
   </mat-toolbar-row>
 </mat-toolbar>
