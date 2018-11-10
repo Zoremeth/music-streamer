@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicControlService } from '../shared/music-control.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-main',
@@ -8,20 +9,32 @@ import { MusicControlService } from '../shared/music-control.service';
 })
 export class MainComponent implements OnInit {
 
-  songs = [
-      { "url": "http://localhost/&Z.flac", "title": "&Z", "artist": "Mizayuki", "album": "Aldnoah Zero"},
-      { "url": "http://localhost/AboutMe.ogg", "title": "About Me", "artist": "Nicode", "album": "About Me - Nicode"},
-  ]
+  songs = [];
 
-  constructor(private musicService: MusicControlService) { }
+  constructor(private musicService: MusicControlService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.getSongs();
   }
 
+  getSongs(): void {
+    //Implement CORS
+    //Template JSON entry { "url": "", "title": "", "artist": "", "album": ""},
+    const url = 'http://localhost/songs.json';
+    let songsJSON = this.http.get(url).subscribe((data: any) => {
+      this.songs = data;
+    });
+  }
+
+  isOddOrEven(i: number): string {
+    if (i % 2 == 0) {
+      return 'tr-1';
+    } else {
+      return 'tr-2';
+    }
+  }
   play(streamURL: string): void {
-    // const prompt = <string>window.prompt("Enter a URL", "http://domain.tld/");
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     this.musicService.play(streamURL);
-    // this.musicService.seekbarMax = Math.trunc(musicPlayer.duration);
   }
 }

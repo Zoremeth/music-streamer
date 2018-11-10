@@ -16,6 +16,12 @@
 .song-table {
   width: 100%;
   border-collapse: collapse;
+  text-align: center;
+}
+
+#song-table {
+  color: white;
+  background-color: #757575;
 }
 
 .filler {
@@ -25,12 +31,16 @@
 }
 
 .tr-1 {
+  cursor: pointer;
+}
+
+.tr-2 {
   color: white;
   background-color: #757575;
+  cursor: pointer;
 }
 
 .song-list {
-  /* Add code */
   width: 70vw;
   height: 100%;
 }
