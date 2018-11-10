@@ -9,21 +9,28 @@
     justify-content: space-around;
 }
 
+.playback-buttons {
+    width: 15vw;
+    display: flex;
+    justify-content: center;
+}
+
 .seekbar {
     width: 70vw;
     display: flex;
-    justify-content: space-evenly;
-
-}
-
-.seekbar-slider {
-    flex: 0.9 1 auto;
+    justify-content: center;    
 }
 
 .volume {
     width: 15vw;
+    display: flex;
+    justify-content: center;
 }
 
-.playback-buttons {
-    width: 15vw;
+.seekbar mat-slider {
+    flex: 0.95 1 auto;
+}
+
+.seekbar-current-time {
+    padding-top: 7px;
 }

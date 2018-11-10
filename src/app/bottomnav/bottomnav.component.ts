@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicControlService } from '../shared/music-control.service';
+import { MatSlider } from '@angular/material/slider';
 
 @Component({
   selector: 'app-bottomnav',
@@ -14,6 +15,7 @@ export class BottomnavComponent implements OnInit {
   currentTimeInSeconds = 0;
   seekbarMax = 500;
   time = 0;
+  disabled = false;
 
   constructor(public musicService: MusicControlService) { }
 
@@ -67,19 +69,15 @@ export class BottomnavComponent implements OnInit {
 
   toggleMute(): void {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    const volumeslider = document.getElementById('volume-slider');
     if (musicPlayer.muted) {
       musicPlayer.muted = false;
+      this.disabled = false;
       this.muteStatus = 'volume_up';
     } else {
       musicPlayer.muted = true;
+      this.disabled = true;
       this.muteStatus = 'volume_off';
     }
-  }
-
-  play(streamURL: string): void {
-    const prompt = <string>window.prompt("Enter a URL", "http://domain.tld/");
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    this.musicService.play(prompt);
-    this.seekbarMax = Math.trunc(musicPlayer.duration);
   }
 }
