@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MusicControlService } from '../shared/music-control.service';
-import { MatSlider } from '@angular/material/slider';
+import { MusicPlayerService } from '../shared/player';
 
 @Component({
   selector: 'app-bottomnav',
@@ -9,73 +8,40 @@ import { MatSlider } from '@angular/material/slider';
 })
 export class BottomnavComponent implements OnInit {
 
-  currentTime = '00:00';
   muteStatus = 'volume_up';
+  time = "00:00";
+  paused = true;
   value = 1.0;
-  currentTimeInSeconds = 0;
-  seekbarMax = 500;
-  time = 0;
   disabled = false;
 
-  constructor(public musicService: MusicControlService) { }
+  constructor(public musicService: MusicPlayerService) {
+    this.musicService.playbackStatus$.subscribe((status: boolean) => this.paused = status);
+  }
 
   ngOnInit() {
-    this.getCurrentTime();
+
   }
 
   seek(): void {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
     const prompt = <string>window.prompt("Enter time in seconds", "");
-    musicPlayer.currentTime = parseInt(prompt)
-  }
-
-  getSongLength(): string {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    if (musicPlayer.readyState > 2) {
-      let minutes = Math.trunc(musicPlayer.duration / 60);
-      let seconds = (musicPlayer.duration / 60 - minutes) * 60;
-
-      return "0" + minutes + ":" + Math.trunc(seconds);
-    } else {
-      return '00:00';
-    }
-  }
-
-  getCurrentTime(): void {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    setInterval(() => {
-      this.time = musicPlayer.currentTime
-    }, 1000)
-  }
-
-  getPlayerStatusIcon(): string {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    return this.musicService.getStatus();
+    this.musicService.seek(parseInt(prompt));
   }
 
   togglePlayback(): void {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    if (musicPlayer.readyState > 2) {
-      if (musicPlayer.paused) {
-        musicPlayer.play();
-      } else {
-        musicPlayer.pause();
-      }
-      this.musicService.getStatus();
+    if (this.paused) {
+      this.musicService.play();
     } else {
-      alert('No valid music (source) loaded. ' + musicPlayer.readyState);
+      this.musicService.pause();
     }
   }
 
   toggleMute(): void {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    const volumeslider = document.getElementById('volume-slider');
-    if (musicPlayer.muted) {
-      musicPlayer.muted = false;
+    if (this.musicService.muteStatus) {
+      this.musicService.unmute()
       this.disabled = false;
       this.muteStatus = 'volume_up';
     } else {
-      musicPlayer.muted = true;
+      this.musicService.mute();
       this.disabled = true;
       this.muteStatus = 'volume_off';
     }
