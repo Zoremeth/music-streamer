@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MusicControlService } from '../shared/music-control.service';
-import { MatSlider } from '@angular/material/slider';
 
 @Component({
   selector: 'app-bottomnav',
@@ -9,36 +7,27 @@ import { MatSlider } from '@angular/material/slider';
 })
 export class BottomnavComponent implements OnInit {
 
-  currentTime = '00:00';
   muteStatus = 'volume_up';
   value = 1.0;
   currentTimeInSeconds = 0;
-  seekbarMax = 500;
   time = 0;
   disabled = false;
+  playerStatusIcon = 'play_arrow';
 
-  constructor(public musicService: MusicControlService) { }
+  constructor() { }
 
   ngOnInit() {
     this.getCurrentTime();
   }
 
-  seek(): void {
+  get length() {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    const prompt = <string>window.prompt("Enter time in seconds", "");
-    musicPlayer.currentTime = parseInt(prompt)
+    return Math.trunc(musicPlayer.duration);
   }
 
-  getSongLength(): string {
+  changeVolume(value: number) {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    if (musicPlayer.readyState > 2) {
-      let minutes = Math.trunc(musicPlayer.duration / 60);
-      let seconds = (musicPlayer.duration / 60 - minutes) * 60;
-
-      return "0" + minutes + ":" + Math.trunc(seconds);
-    } else {
-      return '00:00';
-    }
+    musicPlayer.volume = value;
   }
 
   getCurrentTime(): void {
@@ -50,7 +39,17 @@ export class BottomnavComponent implements OnInit {
 
   getPlayerStatusIcon(): string {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    return this.musicService.getStatus();
+    if (musicPlayer.paused) {
+      this.playerStatusIcon = 'play_arrow';
+    } else {
+      this.playerStatusIcon = 'pause';
+    }
+    return this.playerStatusIcon;
+  }
+
+  seek(value: number) {
+    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
+    musicPlayer.currentTime = value;
   }
 
   togglePlayback(): void {
@@ -61,7 +60,6 @@ export class BottomnavComponent implements OnInit {
       } else {
         musicPlayer.pause();
       }
-      this.musicService.getStatus();
     } else {
       alert('No valid music (source) loaded. ' + musicPlayer.readyState);
     }
@@ -69,7 +67,6 @@ export class BottomnavComponent implements OnInit {
 
   toggleMute(): void {
     const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    const volumeslider = document.getElementById('volume-slider');
     if (musicPlayer.muted) {
       musicPlayer.muted = false;
       this.disabled = false;
