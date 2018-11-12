@@ -6,7 +6,7 @@
         <mat-icon>skip_previous</mat-icon>
       </button>
       <button (click)="togglePlayback()" mat-icon-button>
-        <mat-icon>{{this.musicService.playbackStatusIcon}}</mat-icon>
+        <mat-icon>{{getPlayerStatusIcon()}}</mat-icon>
       </button>
       <button mat-icon-button>
         <mat-icon>skip_next</mat-icon>
@@ -14,14 +14,13 @@
     </div>
     <div class="seekbar">
       <mat-slider min="0" [max]="seekbarMax" value="{{time}}"></mat-slider>
-      <span class="seekbar-current-time">{{ this.musicService.currentTime2}}/{{this.musicService.length |
-        seek}}</span>
+      <span class="seekbar-current-time">{{time | seek}}/{{getSongLength()}}</span>
     </div>
     <div class="volume">
       <button mat-icon-button (click)="toggleMute()">
         <mat-icon>{{muteStatus}}</mat-icon>
       </button>
-      <mat-slider min="0" max="1.0" step="0.05" [value]="value" [disabled]="disabled" #sliderValue (change)="this.musicService.changeVolume(sliderValue.value)"></mat-slider>
+      <mat-slider min="0" max="1.0" step="0.05" value="1.0" [(ngModel)]="value" [disabled]="disabled"></mat-slider>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
