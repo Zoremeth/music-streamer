@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { SeekPipe } from './shared/seekpipe';
 import { HttpClientModule } from '@angular/common/http';
+import { MusicPlayerService } from './shared/player';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [MusicPlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

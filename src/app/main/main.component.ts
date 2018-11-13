@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { MusicPlayerService } from '../shared/player';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +11,7 @@ export class MainComponent implements OnInit {
 
   songs = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private musicService: MusicPlayerService) { }
 
   ngOnInit() {
     this.getSongs();
@@ -34,9 +35,7 @@ export class MainComponent implements OnInit {
   }
 
   play(streamURL: string): void {
-    const musicPlayer = <HTMLAudioElement>document.getElementById('musicplayer');
-    musicPlayer.src = streamURL;
-    musicPlayer.load()
-    musicPlayer.play();
+    this.musicService.load(streamURL);
+    this.musicService.play();
   }
 }

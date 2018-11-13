@@ -1,26 +1,25 @@
 <mat-toolbar color="primary" mat-elevation-z8>
-  <audio preload="metadata" id="musicplayer" [volume]="value"></audio>
   <mat-toolbar-row class="bottomnav-flexbox">
     <div class="playback-buttons">
       <button mat-icon-button>
         <mat-icon>skip_previous</mat-icon>
       </button>
       <button (click)="togglePlayback()" mat-icon-button>
-        <mat-icon>{{getPlayerStatusIcon()}}</mat-icon>
+        <mat-icon>{{this.musicService.playbackStatusIcon}}</mat-icon>
       </button>
       <button mat-icon-button>
         <mat-icon>skip_next</mat-icon>
       </button>
     </div>
     <div class="seekbar">
-      <mat-slider min="0" #seekBar (change)="seek(seekBar.value)" value="{{time}}"></mat-slider>
-      <span class="seekbar-current-time">{{time | seek}}/{{ length | seek}}</span>
+      <mat-slider min="0" [max]="max" #seekBar (change)="this.musicService.seek(seekBar.value)" value="{{time}}"></mat-slider>
+      <span class="seekbar-current-time">{{ time | seek }}/{{ max | seek}}</span>
     </div>
     <div class="volume">
       <button mat-icon-button (click)="toggleMute()">
         <mat-icon>{{muteStatus}}</mat-icon>
       </button>
-      <mat-slider min="0" max="1.0" step="0.05" value="1.0" #volumeSlider (change)="changeVolume(volumeSlider.value)"
+      <mat-slider min="0" max="1.0" step="0.05" value="1.0" #volumeSlider (change)="this.musicService.changeVolume(volumeSlider.value)"
         [disabled]="disabled"></mat-slider>
     </div>
   </mat-toolbar-row>
