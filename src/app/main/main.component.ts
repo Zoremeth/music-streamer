@@ -18,16 +18,16 @@ export class MainComponent implements OnInit {
   }
 
   getSongs(): void {
-    //Implement CORS
-    //Template JSON entry { "url": "", "title": "", "artist": "", "album": ""},
-    const url = 'http://localhost/songs.json';
-    let songsJSON = this.http.get(url).subscribe((data: any) => {
+    // Implement CORS
+    // Template JSON entry { "url": "", "title": "", "artist": "", "album": ""},
+    const url = 'http://localhost/music/songs.json';
+    this.http.get(url).subscribe((data: any) => {
       this.songs = data;
     });
   }
 
   isOddOrEven(i: number): string {
-    if (i % 2 == 0) {
+    if (i % 2 === 0) {
       return 'tr-1';
     } else {
       return 'tr-2';

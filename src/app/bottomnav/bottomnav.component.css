@@ -28,10 +28,11 @@
 }
 
 .seekbar mat-slider {
-    flex: 0.95 1 auto;
+    width: 65vw;
 }
 
 .seekbar-current-time {
     padding-top: 7px;
+    padding-left: 2px;
     width: 5vw;
 }

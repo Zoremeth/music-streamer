@@ -1,10 +1,10 @@
-import { Injectable, OnDestroy, OnInit } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-const musicPlayerId = "musicPlayer";
+const musicPlayerId = 'musicPlayer';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class MusicPlayerService implements OnDestroy {
   private player: HTMLAudioElement;
@@ -78,7 +78,7 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   toggleMute(): boolean {
-    if(this.player.muted) {
+    if (this.player.muted) {
       this.player.muted = false;
       return false;
     } else {
@@ -88,25 +88,25 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   private getOrCreateAudioElement() {
-    const newElement = document.createElement("audio");
+    const newElement = document.createElement('audio');
     newElement.id = musicPlayerId;
     document.body.appendChild(newElement);
     return newElement;
   }
 
   private setupPlayer() {
-    this.player.addEventListener("timeupdate", this.onTimeUpdate);
-    this.player.addEventListener("volumechange", this.onVolumeChange);
-    this.player.addEventListener("play", this.setPlaying);
-    this.player.addEventListener("pause", this.setPaused);
+    this.player.addEventListener('timeupdate', this.onTimeUpdate);
+    this.player.addEventListener('volumechange', this.onVolumeChange);
+    this.player.addEventListener('play', this.setPlaying);
+    this.player.addEventListener('pause', this.setPaused);
     this.player.addEventListener('durationchange', this.durationChange);
   }
 
   private teardownPlayer() {
-    this.player.removeEventListener("timeupdate", this.onTimeUpdate);
-    this.player.removeEventListener("volumechange", this.onVolumeChange);
-    this.player.removeEventListener("play", this.setPlaying);
-    this.player.removeEventListener("pause", this.setPaused);
+    this.player.removeEventListener('timeupdate', this.onTimeUpdate);
+    this.player.removeEventListener('volumechange', this.onVolumeChange);
+    this.player.removeEventListener('play', this.setPlaying);
+    this.player.removeEventListener('pause', this.setPaused);
     this.player.addEventListener('durationchange', this.durationChange);
   }
 

@@ -14,13 +14,13 @@ export class BottomnavComponent implements OnInit {
   disabled = false;
   playerStatusIcon = 'play_arrow';
   paused = false;
-  max = 300;
+  max = 0;
 
   constructor(private musicService: MusicPlayerService) {
     this.musicService.currentTime$.subscribe((seconds: number) => this.time = seconds);
     this.musicService.playbackStatus$.subscribe((status: boolean) => this.paused = status);
     this.musicService.length$.subscribe((seconds: number) => this.max = seconds);
-   }
+  }
 
   ngOnInit() {
   }

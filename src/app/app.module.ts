@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { SeekPipe } from './shared/seekpipe';
 import { HttpClientModule } from '@angular/common/http';
 import { MusicPlayerService } from './shared/player';
+import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MusicPlayerService } from './shared/player';
     MatSliderModule,
     FormsModule,
     HttpClientModule,
+    MatMenuModule,
+    BrowserAnimationsModule,
   ],
   providers: [MusicPlayerService],
   bootstrap: [AppComponent]
