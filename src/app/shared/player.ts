@@ -42,7 +42,7 @@ export class MusicPlayerService implements OnDestroy {
   ngOnDestroy() {
     this.teardownPlayer();
   }
-  
+
   get currentTime$() {
     return this.currentTimeStream.asObservable();
   }
@@ -80,12 +80,32 @@ export class MusicPlayerService implements OnDestroy {
     this.player.play();
   }
 
-  resume() { 
+  resume() {
     this.player.play();
   }
 
   pause() {
     this.player.pause();
+  }
+
+  skipNext() {
+    if (!(this.queueStream.value === (this.songlist.length - 1))) {
+      this.load(this.queueStream.value + 1);
+      this.play();
+    } else {
+      this.load(0);
+      this.play();
+    }
+  }
+
+  skipPrevious() {
+    if (!(this.queueStream.value === 0)) {
+      this.load(this.queueStream.value - 1);
+      this.play();
+    } else {
+      this.load(this.songlist.length - 1);
+      this.play();
+    }
   }
 
   changeVolume(volume: number) {
@@ -115,7 +135,7 @@ export class MusicPlayerService implements OnDestroy {
     this.player.addEventListener('play', this.setPlaying);
     this.player.addEventListener('pause', this.setPaused);
     this.player.addEventListener('durationchange', this.durationChange);
-    this.player.addEventListener('ended', this.nextSong);
+    this.player.addEventListener('ended', () => this.skipNext());
   }
 
   private teardownPlayer() {
@@ -124,14 +144,8 @@ export class MusicPlayerService implements OnDestroy {
     this.player.removeEventListener('play', this.setPlaying);
     this.player.removeEventListener('pause', this.setPaused);
     this.player.removeEventListener('durationchange', this.durationChange);
-    this.player.removeEventListener('ended', this.nextSong);
+    this.player.removeEventListener('ended', () => this.skipNext());
 
-  }
-
-  private nextSong() {
-    console.log(this.queueStream.value);
-    this.load((this.index + 1));
-    this.play();
   }
 
   private onTimeUpdate = (event: Event) => {

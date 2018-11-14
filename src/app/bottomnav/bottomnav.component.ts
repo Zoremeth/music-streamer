@@ -20,13 +20,13 @@ export class BottomnavComponent implements OnInit {
     this.musicService.currentTime$.subscribe((seconds: number) => this.time = seconds);
     this.musicService.playbackStatus$.subscribe((status: boolean) => this.paused = status);
     this.musicService.length$.subscribe((seconds: number) => this.max = seconds);
-    this.musicService.playbackStatus$.subscribe((status: boolean) => this.setPlaybackIcon(status) );
+    this.musicService.playbackStatus$.subscribe((status: boolean) => this.setPlaybackIcon(status));
   }
-  
+
   ngOnInit() {
 
   }
-  
+
   toggleMute() {
     this.musicService.toggleMute() ? this.disabled = true : this.disabled = false;
     this.disabled ? this.muteStatus = 'volume_off' : this.muteStatus = 'volume_up';

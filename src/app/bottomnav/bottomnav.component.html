@@ -1,13 +1,13 @@
 <mat-toolbar color="primary" mat-elevation-z8>
   <mat-toolbar-row class="bottomnav-flexbox">
     <div class="playback-buttons">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="this.musicService.skipPrevious()">
         <mat-icon>skip_previous</mat-icon>
       </button>
       <button (click)="togglePlayback()" mat-icon-button>
         <mat-icon>{{this.playbackIcon}}</mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="this.musicService.skipNext()">
         <mat-icon>skip_next</mat-icon>
       </button>
     </div>
