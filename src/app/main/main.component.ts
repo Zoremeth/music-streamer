@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MusicPlayerService } from '../shared/player';
 
+export interface Song {
+  url: string;
+  title: string;
+  artist: string;
+  album: string;
+}
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -9,21 +16,9 @@ import { MusicPlayerService } from '../shared/player';
 })
 export class MainComponent implements OnInit {
 
-  songs = [];
-
-  constructor(private http: HttpClient, private musicService: MusicPlayerService) { }
+  constructor(private musicService: MusicPlayerService) { }
 
   ngOnInit() {
-    this.getSongs();
-  }
-
-  getSongs(): void {
-    // Implement CORS
-    // Template JSON entry { "url": "", "title": "", "artist": "", "album": ""},
-    const url = 'http://localhost/music/songs.json';
-    this.http.get(url).subscribe((data: any) => {
-      this.songs = data;
-    });
   }
 
   isOddOrEven(i: number): string {
@@ -34,8 +29,8 @@ export class MainComponent implements OnInit {
     }
   }
 
-  play(streamURL: string): void {
-    this.musicService.load(streamURL);
+  play(index: number): void {
+    this.musicService.load(index);
     this.musicService.play();
   }
 }

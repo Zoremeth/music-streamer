@@ -1,7 +1,16 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 const musicPlayerId = 'musicPlayer';
+const url = 'http://localhost/music/songs.json';
+
+export interface Song {
+  url: string;
+  title: string;
+  artist: string;
+  album: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +22,27 @@ export class MusicPlayerService implements OnDestroy {
   private volumeStream: BehaviorSubject<number>;
   private sourceStream: BehaviorSubject<string>;
   private lengthStream: BehaviorSubject<number>;
+  private queueStream: BehaviorSubject<number>;
+  private songlist: Song[] = [];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.player = this.getOrCreateAudioElement();
     this.currentTimeStream = new BehaviorSubject(this.player.currentTime);
     this.playbackStatusStream = new BehaviorSubject(this.player.paused);
     this.volumeStream = new BehaviorSubject(this.player.volume);
     this.sourceStream = new BehaviorSubject(this.player.src);
     this.lengthStream = new BehaviorSubject(this.player.duration);
+    this.queueStream = new BehaviorSubject(0);
+    this.http.get<Song[]>(url).subscribe((songs: Song[]) => {
+      this.songlist = songs;
+    });
     this.setupPlayer();
   }
 
   ngOnDestroy() {
     this.teardownPlayer();
   }
-
+  
   get currentTime$() {
     return this.currentTimeStream.asObservable();
   }
@@ -48,17 +63,12 @@ export class MusicPlayerService implements OnDestroy {
     return this.lengthStream.asObservable();
   }
 
-  get playbackStatusIcon(): string {
-    if (this.playbackStatusStream.value) {
-      return 'play_arrow';
-    } else {
-      return 'pause';
-    }
+  get songs() {
+    return this.songlist;
   }
 
-  load(source: string) {
-    this.player.src = source;
-    this.sourceStream.next(this.player.src);
+  load(index: number) {
+    this.queueStream.next(index);
   }
 
   seek(seconds: number) {
@@ -66,6 +76,11 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   play() {
+    this.player.src = this.songs[this.queueStream.value].url;
+    this.player.play();
+  }
+
+  resume() { 
     this.player.play();
   }
 
@@ -100,6 +115,7 @@ export class MusicPlayerService implements OnDestroy {
     this.player.addEventListener('play', this.setPlaying);
     this.player.addEventListener('pause', this.setPaused);
     this.player.addEventListener('durationchange', this.durationChange);
+    this.player.addEventListener('ended', this.nextSong);
   }
 
   private teardownPlayer() {
@@ -107,7 +123,15 @@ export class MusicPlayerService implements OnDestroy {
     this.player.removeEventListener('volumechange', this.onVolumeChange);
     this.player.removeEventListener('play', this.setPlaying);
     this.player.removeEventListener('pause', this.setPaused);
-    this.player.addEventListener('durationchange', this.durationChange);
+    this.player.removeEventListener('durationchange', this.durationChange);
+    this.player.removeEventListener('ended', this.nextSong);
+
+  }
+
+  private nextSong() {
+    console.log(this.queueStream.value);
+    this.load((this.index + 1));
+    this.play();
   }
 
   private onTimeUpdate = (event: Event) => {

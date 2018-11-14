@@ -7,7 +7,7 @@
                 <th>Artist</th>
                 <th>Album</th>
             </tr>
-            <tr *ngFor="let song of songs, let i = index" (click)="play(song['url'])" class="{{isOddOrEven(i)}}">
+            <tr *ngFor="let song of this.musicService.songs, let i = index" (click)="play(i)" class="{{isOddOrEven(i)}}">
                 <td>{{song['title']}}</td>
                 <td>{{song['artist']}}</td>
                 <td>{{song['album']}}</td>
