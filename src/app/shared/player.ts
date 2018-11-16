@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const musicPlayerId = 'musicPlayer';
-const url = 'http://localhost/music/songs.json';
+const jsonUrl = 'http://localhost:5000/api/songs';
 
 export interface Song {
   url: string;
@@ -23,6 +23,7 @@ export class MusicPlayerService implements OnDestroy {
   private sourceStream: BehaviorSubject<string>;
   private lengthStream: BehaviorSubject<number>;
   private queueStream: BehaviorSubject<number>;
+  private randomizerStream: BehaviorSubject<boolean>;
   private songlist: Song[] = [];
 
   constructor(private http: HttpClient) {
@@ -33,7 +34,8 @@ export class MusicPlayerService implements OnDestroy {
     this.sourceStream = new BehaviorSubject(this.player.src);
     this.lengthStream = new BehaviorSubject(this.player.duration);
     this.queueStream = new BehaviorSubject(0);
-    this.http.get<Song[]>(url).subscribe((songs: Song[]) => {
+    this.randomizerStream = new BehaviorSubject(false);
+    this.http.get<Song[]>(jsonUrl).subscribe((songs: Song[]) => {
       this.songlist = songs;
     });
     this.setupPlayer();
@@ -63,8 +65,20 @@ export class MusicPlayerService implements OnDestroy {
     return this.lengthStream.asObservable();
   }
 
+  get randomizer$() {
+    return this.randomizerStream.asObservable();
+  }
+
   get songs() {
     return this.songlist;
+  }
+
+  get title() {
+    return this.songlist[this.queueStream.value].title
+  }
+
+  get artist() {
+    return this.songlist[this.queueStream.value].artist
   }
 
   load(index: number) {
@@ -73,6 +87,10 @@ export class MusicPlayerService implements OnDestroy {
 
   seek(seconds: number) {
     this.player.currentTime = seconds;
+  }
+
+  set randomizer(randomize: boolean) {
+    this.randomizerStream.next(randomize);
   }
 
   play() {
@@ -89,13 +107,26 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   skipNext() {
-    if (!(this.queueStream.value === (this.songlist.length - 1))) {
-      this.load(this.queueStream.value + 1);
-      this.play();
+    if (!this.randomizerStream.value) {
+      if (!(this.queueStream.value === (this.songlist.length - 1))) {
+        this.load(this.queueStream.value + 1);
+        this.play();
+      } else {
+        this.load(0);
+        this.play();
+      }
     } else {
-      this.load(0);
-      this.play();
+      this.load(this.getRandomInt(-1, this.songlist.length - 1));
+      this.play()
     }
+  }
+
+  // From:
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#Getting_a_random_integer_between_two_values
+  getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   skipPrevious() {

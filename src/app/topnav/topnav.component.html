@@ -4,7 +4,8 @@
       <input>
     </div>
     <div class="toolbar-main-buttons">
-      <button mat-raised-button color="accent" (click)="lol()">Menu</button>
+      <span>{{this.musicService.artist + " - " + this.musicService.title}}</span>
+      <!-- <button mat-raised-button color="accent" (click)="lol()">Menu</button> -->
     </div>
     <div class="toolbar-other-buttons">
       <button mat-button [matMenuTriggerFor]="menu">Zoremeth</button>

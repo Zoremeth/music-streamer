@@ -15,12 +15,17 @@ export class BottomnavComponent implements OnInit {
   playbackIcon = 'play_arrow';
   paused = false;
   max = 0;
+  playbackType = 'loop';
+  randomizer = false;
 
   constructor(private musicService: MusicPlayerService) {
     this.musicService.currentTime$.subscribe((seconds: number) => this.time = seconds);
-    this.musicService.playbackStatus$.subscribe((status: boolean) => this.paused = status);
     this.musicService.length$.subscribe((seconds: number) => this.max = seconds);
-    this.musicService.playbackStatus$.subscribe((status: boolean) => this.setPlaybackIcon(status));
+    this.musicService.playbackStatus$.subscribe((status: boolean) => {
+      this.paused = status
+      status ? this.playbackIcon = 'play_arrow' : this.playbackIcon = 'pause';
+    });
+    this.musicService.randomizer$.subscribe((randomize: boolean) => this.randomizer = randomize);
   }
 
   ngOnInit() {
@@ -36,7 +41,14 @@ export class BottomnavComponent implements OnInit {
     this.paused ? this.musicService.resume() : this.musicService.pause();
   }
 
-  setPlaybackIcon(status: boolean) {
-    status ? this.playbackIcon = 'play_arrow' : this.playbackIcon = 'pause';
+  toggleShuffle(): void {
+    if (this.randomizer) {
+      this.musicService.randomizer = false;
+      this.playbackType = 'loop';
+    } else {
+      this.musicService.randomizer = true;
+      this.playbackType = 'shuffle'
+    }
   }
 }
+
