@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicPlayerService } from '../shared/player';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-topnav',
@@ -8,14 +9,14 @@ import { MusicPlayerService } from '../shared/player';
 })
 export class TopnavComponent implements OnInit {
 
-  constructor(private musicService: MusicPlayerService) {
+  constructor(public musicService: MusicPlayerService, private loginService: LoginService) {
   }
 
   ngOnInit() {
   }
 
-  lol(): void {
-    alert("Hello World!");
+  logout(): void {
+    this.loginService.logout();
   }
 
 }

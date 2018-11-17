@@ -5,16 +5,15 @@
     </div>
     <div class="toolbar-main-buttons">
       <span>{{this.musicService.artist + " - " + this.musicService.title}}</span>
-      <!-- <button mat-raised-button color="accent" (click)="lol()">Menu</button> -->
     </div>
     <div class="toolbar-other-buttons">
-      <button mat-button [matMenuTriggerFor]="menu">Zoremeth</button>
+      <button mat-button [matMenuTriggerFor]="menu">Username</button>
     </div>
     <mat-menu #menu>
       <button mat-menu-item>
         <mat-icon>settings</mat-icon>Settings
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>Log out
       </button>
     </mat-menu>

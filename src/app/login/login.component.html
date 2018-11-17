@@ -1,0 +1,18 @@
+<mat-card class="mat-z6-elevation" style="width: 300px;">
+  <mat-card-title>Login</mat-card-title>
+  <mat-divider></mat-divider>
+  <div class="container">
+    <mat-form-field>
+      <input matInput type="text" cdkFocusInitial placeholder="Username" #usernameInput>
+      <!-- <button mat-button tabindex="-1" *ngIf="username" matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Enter your password" type="password" #passwordInput (keydown)="login(usernameInput.value, passwordInput.value)">
+    </mat-form-field>
+  </div>
+  <mat-card-actions class="flex-item">
+    <button mat-raised-button class="actionButtons" (click)="login(usernameInput.value, passwordInput.value)">Login</button>
+  </mat-card-actions>
+</mat-card>

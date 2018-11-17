@@ -15,6 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MusicPlayerService } from './shared/player';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -23,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MainComponent,
     BottomnavComponent,
     SeekPipe,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +42,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatMenuModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [MusicPlayerService],
   bootstrap: [AppComponent]

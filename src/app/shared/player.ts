@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const musicPlayerId = 'musicPlayer';
-const jsonUrl = 'http://localhost:5000/api/songs';
+const jsonUrl = '/api/songs';
 
 export interface Song {
   url: string;
@@ -74,11 +74,11 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   get title() {
-    return this.songlist[this.queueStream.value].title
+    return this.songlist[this.queueStream.value].title;
   }
 
   get artist() {
-    return this.songlist[this.queueStream.value].artist
+    return this.songlist[this.queueStream.value].artist;
   }
 
   load(index: number) {
@@ -117,12 +117,12 @@ export class MusicPlayerService implements OnDestroy {
       }
     } else {
       this.load(this.getRandomInt(-1, this.songlist.length - 1));
-      this.play()
+      this.play();
     }
   }
 
   // From:
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#Getting_a_random_integer_between_two_values
+  // MDN /en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#Getting_a_random_integer_between_two_values
   getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
     max = Math.floor(max);

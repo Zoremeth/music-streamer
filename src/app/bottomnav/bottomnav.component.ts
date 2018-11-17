@@ -18,11 +18,11 @@ export class BottomnavComponent implements OnInit {
   playbackType = 'loop';
   randomizer = false;
 
-  constructor(private musicService: MusicPlayerService) {
+  constructor(public musicService: MusicPlayerService) {
     this.musicService.currentTime$.subscribe((seconds: number) => this.time = seconds);
     this.musicService.length$.subscribe((seconds: number) => this.max = seconds);
     this.musicService.playbackStatus$.subscribe((status: boolean) => {
-      this.paused = status
+      this.paused = status;
       status ? this.playbackIcon = 'play_arrow' : this.playbackIcon = 'pause';
     });
     this.musicService.randomizer$.subscribe((randomize: boolean) => this.randomizer = randomize);
@@ -47,7 +47,7 @@ export class BottomnavComponent implements OnInit {
       this.playbackType = 'loop';
     } else {
       this.musicService.randomizer = true;
-      this.playbackType = 'shuffle'
+      this.playbackType = 'shuffle';
     }
   }
 }

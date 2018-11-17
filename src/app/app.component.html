@@ -1,4 +1,7 @@
-<app-topnav></app-topnav>
-<app-main></app-main>
-<app-bottomnav></app-bottomnav>
+<app-login *ngIf="!loginState; else elseBlock"></app-login>
+<ng-template #elseBlock>
+    <app-topnav></app-topnav>
+    <app-main></app-main>
+    <app-bottomnav></app-bottomnav>
+</ng-template>
 <router-outlet></router-outlet>

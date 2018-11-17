@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MusicPlayerService } from '../shared/player';
 
 export interface Song {
@@ -16,7 +15,7 @@ export interface Song {
 })
 export class MainComponent implements OnInit {
 
-  constructor(private musicService: MusicPlayerService) { }
+  constructor(public musicService: MusicPlayerService) { }
 
   ngOnInit() {
   }
