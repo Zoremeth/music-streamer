@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="toolbar-flexbox">
-    <div class="input-box">
-      <input>
-    </div>
+    <mat-form-field class="input-box">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
     <div class="toolbar-main-buttons">
       <span>{{this.musicService.artist + " - " + this.musicService.title}}</span>
     </div>

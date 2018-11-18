@@ -15,8 +15,6 @@
 
 .song-table {
   width: 100%;
-  border-collapse: collapse;
-  text-align: center;
 }
 
 #song-table {
@@ -37,6 +35,10 @@
 .tr-2 {
   color: white;
   background-color: #757575;
+  cursor: pointer;
+}
+
+.data-row {
   cursor: pointer;
 }
 

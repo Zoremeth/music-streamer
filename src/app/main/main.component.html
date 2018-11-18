@@ -1,17 +1,21 @@
 <div class="main-flexbox">
     <div class="filler"></div>
     <div class="song-list" color="accent">
-        <table class="song-table">
-            <tr class="song-table" id="song-table">
-                <th>Title</th>
-                <th>Artist</th>
-                <th>Album</th>
-            </tr>
-            <tr *ngFor="let song of this.musicService.songs, let i = index" (click)="play(i)" class="{{isOddOrEven(i)}}">
-                <td>{{song['title']}}</td>
-                <td>{{song['artist']}}</td>
-                <td>{{song['album']}}</td>
-            </tr>
+        <table mat-table [dataSource]="songList" class="mat-elevation-z8 song-table">
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let song"> {{song.title}}</td>
+            </ng-container>
+            <ng-container matColumnDef="artist">
+                <th mat-header-cell *matHeaderCellDef> Artist </th>
+                <td mat-cell *matCellDef="let song"> {{song.artist}}</td>
+            </ng-container>
+            <ng-container matColumnDef="album">
+                <th mat-header-cell *matHeaderCellDef> Album </th>
+                <td mat-cell *matCellDef="let song"> {{song.album}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let song; let i = index; columns: displayedColumns;" (click)="play(i)" class="data-row"></tr>
         </table>
     </div>
     <div class="filler"></div>

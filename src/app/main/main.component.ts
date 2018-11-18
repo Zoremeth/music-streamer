@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicPlayerService } from '../shared/player';
+import { MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
 
 export interface Song {
   url: string;
@@ -15,7 +17,12 @@ export interface Song {
 })
 export class MainComponent implements OnInit {
 
-  constructor(public musicService: MusicPlayerService) { }
+  songs: Song[] = [];
+  displayedColumns: string[] = ['title', 'artist', 'album'];
+  songList = new MatTableDataSource(this.songs);
+
+  constructor(public musicService: MusicPlayerService) {
+  }
 
   ngOnInit() {
   }
@@ -31,5 +38,9 @@ export class MainComponent implements OnInit {
   play(index: number): void {
     this.musicService.load(index);
     this.musicService.play();
+  }
+
+  applyFilter(filterValue: string) {
+    this.songList.filter = filterValue.trim().toLowerCase();
   }
 }

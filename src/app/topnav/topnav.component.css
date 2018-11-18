@@ -3,11 +3,6 @@
     justify-content: space-around;
 }
 
-.input-box input {
-    border-radius: 5px;
-    border-style: solid;
-} 
-
 .toolbar-main-buttons button {
     width: 10vw;
     margin-left: 2px;

@@ -21,6 +21,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MatInputModule } from '@angular/material';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
   ],
   providers: [MusicPlayerService],
   bootstrap: [AppComponent]

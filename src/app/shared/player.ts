@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const musicPlayerId = 'musicPlayer';
-const jsonUrl = '/api/songs';
+const jsonUrl = 'http://localhost:5000/api/songs';
 
 export interface Song {
   url: string;
@@ -27,6 +27,9 @@ export class MusicPlayerService implements OnDestroy {
   private songlist: Song[] = [];
 
   constructor(private http: HttpClient) {
+    this.http.get<Song[]>(jsonUrl).toPromise().then((songs: Song[]) => {
+      this.songlist = songs;
+    });
     this.player = this.getOrCreateAudioElement();
     this.currentTimeStream = new BehaviorSubject(this.player.currentTime);
     this.playbackStatusStream = new BehaviorSubject(this.player.paused);
@@ -35,9 +38,6 @@ export class MusicPlayerService implements OnDestroy {
     this.lengthStream = new BehaviorSubject(this.player.duration);
     this.queueStream = new BehaviorSubject(0);
     this.randomizerStream = new BehaviorSubject(false);
-    this.http.get<Song[]>(jsonUrl).subscribe((songs: Song[]) => {
-      this.songlist = songs;
-    });
     this.setupPlayer();
   }
 
@@ -74,11 +74,19 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   get title() {
-    return this.songlist[this.queueStream.value].title;
+    if (!(this.player.src === '')) {
+      return this.songlist[this.queueStream.value].title;
+    } else {
+      return '';
+    }
   }
 
   get artist() {
-    return this.songlist[this.queueStream.value].artist;
+    if (!(this.player.src === '')) {
+      return this.songlist[this.queueStream.value].artist;
+    } else {
+      return '';
+    }
   }
 
   load(index: number) {
