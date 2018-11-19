@@ -36,3 +36,8 @@
     padding-left: 2px;
     width: 5vw;
 }
+
+.mobile-bottomnav {
+    display: flex;
+    justify-content: space-between;
+}

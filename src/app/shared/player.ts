@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const musicPlayerId = 'musicPlayer';
-const jsonUrl = 'http://localhost:5000/api/songs';
+const jsonUrl = '/api/songs';
 
 export interface Song {
   url: string;
@@ -24,11 +24,12 @@ export class MusicPlayerService implements OnDestroy {
   private lengthStream: BehaviorSubject<number>;
   private queueStream: BehaviorSubject<number>;
   private randomizerStream: BehaviorSubject<boolean>;
-  private songlist: Song[] = [];
+  private songStream = new BehaviorSubject<Song[]>([]);
+  public isMobile = false;
 
   constructor(private http: HttpClient) {
     this.http.get<Song[]>(jsonUrl).toPromise().then((songs: Song[]) => {
-      this.songlist = songs;
+      this.songStream.next(songs);
     });
     this.player = this.getOrCreateAudioElement();
     this.currentTimeStream = new BehaviorSubject(this.player.currentTime);
@@ -39,7 +40,11 @@ export class MusicPlayerService implements OnDestroy {
     this.queueStream = new BehaviorSubject(0);
     this.randomizerStream = new BehaviorSubject(false);
     this.setupPlayer();
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+      this.isMobile = true;
+    }
   }
+
 
   ngOnDestroy() {
     this.teardownPlayer();
@@ -69,13 +74,13 @@ export class MusicPlayerService implements OnDestroy {
     return this.randomizerStream.asObservable();
   }
 
-  get songs() {
-    return this.songlist;
+  get songs$() {
+    return this.songStream.asObservable();
   }
 
   get title() {
     if (!(this.player.src === '')) {
-      return this.songlist[this.queueStream.value].title;
+      return this.songStream.value[this.queueStream.value].title;
     } else {
       return '';
     }
@@ -83,7 +88,7 @@ export class MusicPlayerService implements OnDestroy {
 
   get artist() {
     if (!(this.player.src === '')) {
-      return this.songlist[this.queueStream.value].artist;
+      return this.songStream.value[this.queueStream.value].artist;
     } else {
       return '';
     }
@@ -102,7 +107,7 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   play() {
-    this.player.src = this.songs[this.queueStream.value].url;
+    this.player.src = this.songStream.value[this.queueStream.value].url;
     this.player.play();
   }
 
@@ -116,7 +121,7 @@ export class MusicPlayerService implements OnDestroy {
 
   skipNext() {
     if (!this.randomizerStream.value) {
-      if (!(this.queueStream.value === (this.songlist.length - 1))) {
+      if (!(this.queueStream.value === (this.songStream.value.length - 1))) {
         this.load(this.queueStream.value + 1);
         this.play();
       } else {
@@ -124,7 +129,7 @@ export class MusicPlayerService implements OnDestroy {
         this.play();
       }
     } else {
-      this.load(this.getRandomInt(-1, this.songlist.length - 1));
+      this.load(this.getRandomInt(-1, this.songStream.value.length - 1));
       this.play();
     }
   }
@@ -142,7 +147,7 @@ export class MusicPlayerService implements OnDestroy {
       this.load(this.queueStream.value - 1);
       this.play();
     } else {
-      this.load(this.songlist.length - 1);
+      this.load(this.songStream.value.length - 1);
       this.play();
     }
   }

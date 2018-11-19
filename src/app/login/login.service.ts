@@ -18,8 +18,12 @@ export class LoginService {
   }
 
   login(username: string, password: string) {
-    // Implement login logic
+    // Temp implementation (Testing purposes only).
+    if (username === 'user' && password === 'password') {
       this.loginStream.next(true);
+    } else {
+      alert('Wrong username/password');
+    }
   }
 
   logout() {

@@ -1,6 +1,9 @@
 <div class="main-flexbox">
-    <div class="filler"></div>
-    <div class="song-list" color="accent">
+    <div class="filler" *ngIf="!(this.musicService.isMobile)"></div>
+    <div [class]="mainContent">
+        <mat-form-field class="input-box">
+            <input matInput (keyup)="applyFilter($event.target.value)">
+        </mat-form-field>
         <table mat-table [dataSource]="songList" class="mat-elevation-z8 song-table">
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -18,5 +21,5 @@
             <tr mat-row *matRowDef="let song; let i = index; columns: displayedColumns;" (click)="play(i)" class="data-row"></tr>
         </table>
     </div>
-    <div class="filler"></div>
+    <div class="filler" *ngIf="!(this.musicService.isMobile)"></div>
 </div>

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { MusicPlayerService } from '../shared/player';
 import { MatTableDataSource } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
 
 export interface Song {
   url: string;
@@ -17,14 +16,22 @@ export interface Song {
 })
 export class MainComponent implements OnInit {
 
-  songs: Song[] = [];
   displayedColumns: string[] = ['title', 'artist', 'album'];
-  songList = new MatTableDataSource(this.songs);
+  songList = new MatTableDataSource<Song>();
+  mainContent = 'song-list';
+  @HostBinding('style.top') top = '64px';
+  @HostBinding('style.bottom') bottom = '64px';
 
   constructor(public musicService: MusicPlayerService) {
+    if (this.musicService.isMobile) {
+      this.displayedColumns = ['title', 'artist'];
+      this.top = '56px';
+      this.bottom = '112px';
+    }
   }
 
   ngOnInit() {
+    this.musicService.songs$.subscribe(songs => (this.songList.data = songs));
   }
 
   isOddOrEven(i: number): string {

@@ -18,4 +18,10 @@ export class LoginComponent implements OnInit {
     this.loginService.login(username, password);
   }
 
+  enterLogin(event: KeyboardEvent, username: string, password: string): void {
+    if (event.key === 'Enter') {
+      this.loginService.login(username, password);
+    }
+  }
+
 }

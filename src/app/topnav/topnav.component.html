@@ -1,14 +1,15 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="toolbar-flexbox">
-    <mat-form-field class="input-box">
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+    <div class="input-box"></div>
     <div class="toolbar-main-buttons">
       <span>{{this.musicService.artist + " - " + this.musicService.title}}</span>
     </div>
-    <div class="toolbar-other-buttons">
+    <div class="toolbar-other-buttons" *ngIf="!(this.musicService.isMobile); else filler">
       <button mat-button [matMenuTriggerFor]="menu">Username</button>
     </div>
+    <ng-template #filler>
+      <div class="toolbar-other-buttons"></div>
+    </ng-template>
     <mat-menu #menu>
       <button mat-menu-item>
         <mat-icon>settings</mat-icon>Settings

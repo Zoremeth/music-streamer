@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
-  <mat-toolbar-row class="bottomnav-flexbox">
+  <mat-toolbar-row class="bottomnav-flexbox" *ngIf="!this.musicService.isMobile; else mobileView">
     <div class="playback-buttons">
       <button mat-icon-button (click)="this.musicService.skipPrevious()">
         <mat-icon>skip_previous</mat-icon>
@@ -26,4 +26,35 @@
       </button>
     </div>
   </mat-toolbar-row>
+  <ng-template #mobileView>
+    <mat-toolbar-row>
+      <div class="seekbar">
+        <mat-slider min="0" [max]="max" #seekBar (change)="this.musicService.seek(seekBar.value)" value="{{time}}"></mat-slider>
+        <span class="seekbar-current-time">{{ time | seek }}/{{ max | seek}}</span>
+      </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="mobile-bottomnav">
+      <div>
+        <button mat-icon-button (click)="this.musicService.skipPrevious()">
+          <mat-icon>skip_previous</mat-icon>
+        </button>
+        <button (click)="togglePlayback()" mat-icon-button>
+          <mat-icon>{{this.playbackIcon}}</mat-icon>
+        </button>
+        <button mat-icon-button (click)="this.musicService.skipNext()">
+          <mat-icon>skip_next</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-icon-button (click)="toggleMute()">
+          <mat-icon>{{muteStatus}}</mat-icon>
+        </button>
+        <mat-slider min="0" max="1.0" step="0.05" value="1.0" #volumeSlider (change)="this.musicService.changeVolume(volumeSlider.value)"
+          [disabled]="disabled"></mat-slider>
+        <button mat-icon-button (click)="toggleShuffle()">
+          <mat-icon>{{playbackType}}</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </ng-template>
 </mat-toolbar>
