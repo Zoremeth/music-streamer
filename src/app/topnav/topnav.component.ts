@@ -16,6 +16,7 @@ export class TopnavComponent implements OnInit {
   }
 
   logout(): void {
+    this.musicService.pause();
     this.loginService.logout();
   }
 

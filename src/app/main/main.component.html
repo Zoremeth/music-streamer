@@ -18,7 +18,7 @@
                 <td mat-cell *matCellDef="let song"> {{song.album}}</td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let song; let i = index; columns: displayedColumns;" (click)="play(i)" class="data-row"></tr>
+            <tr mat-row *matRowDef="let song; columns: displayedColumns;" (click)="play(song.id)" class="data-row"></tr>
         </table>
     </div>
     <div class="filler" *ngIf="!(this.musicService.isMobile)"></div>
