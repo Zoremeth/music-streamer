@@ -1,6 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { MusicPlayerService } from '../shared/player';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 export interface Song {
   url: string;
@@ -21,6 +21,7 @@ export class MainComponent implements OnInit {
   mainContent = 'song-list';
   @HostBinding('style.top') top = '64px';
   @HostBinding('style.bottom') bottom = '64px';
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(public musicService: MusicPlayerService) {
     if (this.musicService.isMobile) {
@@ -29,21 +30,15 @@ export class MainComponent implements OnInit {
       this.bottom = '112px';
     }
   }
-
   ngOnInit() {
-    this.musicService.songs$.subscribe(songs => (this.songList.data = songs));
+    this.musicService.songs$.subscribe(songs => (this.songList.data = songs,
+      this.songList.sort = this.sort
+    ));
   }
 
-  isOddOrEven(i: number): string {
-    if (i % 2 === 0) {
-      return 'tr-1';
-    } else {
-      return 'tr-2';
-    }
-  }
-
-  play(index: number): void {
-    this.musicService.load(index);
+  play(id: number): void {
+    console.log(this.songList.data[id]);
+    this.musicService.load(id);
     this.musicService.play();
   }
 
