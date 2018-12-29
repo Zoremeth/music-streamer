@@ -1,13 +1,7 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { MusicPlayerService } from '../shared/player';
 import { MatTableDataSource, MatSort } from '@angular/material';
-
-export interface Song {
-  url: string;
-  title: string;
-  artist: string;
-  album: string;
-}
+import { Song } from '../shared/song';
 
 @Component({
   selector: 'app-main',

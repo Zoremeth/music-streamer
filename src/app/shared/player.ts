@@ -1,16 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Song } from './song';
 
 const musicPlayerId = 'musicPlayer';
 const jsonUrl = '/api/songs';
-
-export interface Song {
-  url: string;
-  title: string;
-  artist: string;
-  album: string;
-}
 
 @Injectable({
   providedIn: 'root'
