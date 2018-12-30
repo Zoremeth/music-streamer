@@ -12,10 +12,14 @@ export interface LoginObj {
 export class LoginService {
 
   private loginStream: BehaviorSubject<boolean>;
-
+  public currentUser = '';
 
   constructor(private http: HttpClient) {
     this.loginStream = new BehaviorSubject(false);
+    this.currentUser = sessionStorage.getItem('currentUser') as string;
+    if (sessionStorage.getItem('loggedIn') === 'true') {
+      this.loginStream.next(true);
+    }
   }
 
   loggedIn$() {
@@ -25,12 +29,22 @@ export class LoginService {
   login(username: string, password: string) {
     this.http.post<LoginObj>('/api/login', { 'username': username, 'password': password })
       .subscribe(results => {
-        return results.loggedIn ? this.loginStream.next(true) : alert('Wrong username/password');
+        this.currentUser = username;
+        if (results.loggedIn) {
+          this.loginStream.next(true);
+          sessionStorage.setItem('loggedIn', 'true');
+          sessionStorage.setItem('currentUser', username);
+        } else {
+          alert('Wrong username/password');
+          sessionStorage.setItem('loggedIn', 'false');
+          sessionStorage.setItem('currentUser', '');
+        }
       });
   }
 
   logout() {
-    this.http.get('api/logout');
+    this.http.get('/api/logout');
+    sessionStorage.clear();
     this.loginStream.next(false);
   }
 }

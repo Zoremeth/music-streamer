@@ -5,7 +5,7 @@
       <span>{{this.musicService.artist + " - " + this.musicService.title}}</span>
     </div>
     <div class="toolbar-other-buttons" *ngIf="!(this.musicService.isMobile); else filler">
-      <button mat-button [matMenuTriggerFor]="menu">Username</button>
+      <button mat-button [matMenuTriggerFor]="menu">{{currentUser | uppercase }}</button>
     </div>
     <ng-template #filler>
       <div class="toolbar-other-buttons"></div>

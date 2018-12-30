@@ -8,11 +8,12 @@ import { LoginService } from '../login/login.service';
   styleUrls: ['./topnav.component.css']
 })
 export class TopnavComponent implements OnInit {
-
+  currentUser = 'Username';
   constructor(public musicService: MusicPlayerService, private loginService: LoginService) {
   }
 
   ngOnInit() {
+    this.currentUser = this.loginService.currentUser;
   }
 
   logout(): void {
