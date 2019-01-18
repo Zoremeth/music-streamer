@@ -17,13 +17,8 @@ export class MainComponent implements OnInit {
   @HostBinding('style.bottom') bottom = '64px';
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public musicService: MusicPlayerService) {
-    if (this.musicService.isMobile) {
-      this.displayedColumns = ['title', 'artist'];
-      this.top = '56px';
-      this.bottom = '112px';
-    }
-  }
+  constructor(public musicService: MusicPlayerService) { }
+
   ngOnInit() {
     this.musicService.songs$.subscribe(songs => (this.songList.data = songs,
       this.songList.sort = this.sort

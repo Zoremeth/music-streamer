@@ -36,24 +36,3 @@
     display: flex;
     justify-content: center;
 }
-
-/* Mobile */
-@media(max-width: 360px) {
-    .seekbar mat-slider {
-        width: 60vw;
-    }
-
-    .seekbar {
-        width: 100%;    
-        justify-content: space-around;    
-    }
-
-    .seekbar-current-time {
-        width: 25vw;
-    }
-}
-
-.mobile-bottomnav {
-    display: flex;
-    justify-content: space-between;
-}

@@ -19,7 +19,6 @@ export class MusicPlayerService implements OnDestroy {
   private queueStream: BehaviorSubject<number>;
   private randomizerStream: BehaviorSubject<boolean>;
   private songStream = new BehaviorSubject<Song[]>([]);
-  public isMobile = false;
 
   constructor(private http: HttpClient) {
     this.http.get<Song[]>(jsonUrl).toPromise().then((songs: Song[]) => {
@@ -34,9 +33,6 @@ export class MusicPlayerService implements OnDestroy {
     this.queueStream = new BehaviorSubject(0);
     this.randomizerStream = new BehaviorSubject(false);
     this.setupPlayer();
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
-      this.isMobile = true;
-    }
   }
 
 
