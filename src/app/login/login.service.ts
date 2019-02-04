@@ -43,7 +43,7 @@ export class LoginService {
   }
 
   logout() {
-    this.http.get('/api/logout');
+    this.http.get('/api/logout').subscribe(data => console.log(data));
     sessionStorage.clear();
     this.loginStream.next(false);
   }

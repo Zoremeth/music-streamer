@@ -5,6 +5,7 @@ import { Song } from './song';
 
 const musicPlayerId = 'musicPlayer';
 const jsonUrl = '/api/songs';
+const musicUrl = '/api/get/song/';
 
 @Injectable({
   providedIn: 'root'
@@ -97,7 +98,7 @@ export class MusicPlayerService implements OnDestroy {
   }
 
   play() {
-    this.player.src = this.songStream.value[this.queueStream.value].url;
+    this.player.src = musicUrl + this.queueStream.value;
     this.player.play();
   }
 

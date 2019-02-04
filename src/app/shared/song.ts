@@ -1,6 +1,7 @@
 export interface Song {
   id: number;
-  url: string;
+  directory: string;
+  filename: string;
   title: string;
   artist: string;
   album: string;

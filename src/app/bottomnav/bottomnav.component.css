@@ -7,6 +7,7 @@
 .bottomnav-flexbox {
     display: flex;
     justify-content: space-around;
+    width: 100%;
 }
 
 .playback-buttons {
@@ -16,23 +17,23 @@
 }
 
 .seekbar {
-    width: 70vw;
+    width: 65vw;
     display: flex;
     justify-content: center;    
 }
 
 .seekbar mat-slider {
-    width: 60vw;
+    width: 80%;
 }
 
 .seekbar-current-time {
     padding-top: 7px;
     padding-left: 2px;
-    width: 10vw;
+    width: 20%;
 }
 
 .volume {
-    width: 15vw;
+    width: 20vw;
     display: flex;
     justify-content: center;
 }
