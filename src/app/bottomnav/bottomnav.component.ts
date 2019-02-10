@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicPlayerService } from '../shared/player';
+import { ThemeService } from '../shared/theme';
 
 @Component({
   selector: 'app-bottomnav',
@@ -18,7 +19,7 @@ export class BottomnavComponent implements OnInit {
   playbackType = 'loop';
   randomizer = false;
 
-  constructor(public musicService: MusicPlayerService) {
+  constructor(public musicService: MusicPlayerService, private themeService: ThemeService) {
     this.musicService.currentTime$.subscribe((seconds: number) => this.time = seconds);
     this.musicService.length$.subscribe((seconds: number) => this.max = seconds);
     this.musicService.playbackStatus$.subscribe((status: boolean) => {
@@ -49,6 +50,10 @@ export class BottomnavComponent implements OnInit {
       this.musicService.randomizer = true;
       this.playbackType = 'shuffle';
     }
+  }
+
+  test(): void {
+    this.themeService.setTheme('theme-dark');
   }
 }
 

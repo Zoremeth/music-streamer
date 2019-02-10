@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+@import 'misty-woods.scss';
+@import 'sample-theme.scss';
+
+
+.theme-light {
+    @include angular-material-theme($misty-woods-theme);
+}
+
+.theme-dark {
+    @include angular-material-theme($sample-theme);
+}

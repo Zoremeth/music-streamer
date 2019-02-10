@@ -10,7 +10,7 @@ import { Song } from '../shared/song';
 })
 export class MainComponent implements OnInit {
 
-  displayedColumns: string[] = ['title', 'artist', 'album', 'download'];
+  displayedColumns: string[] = ['title', 'artist', 'download'];
   songList = new MatTableDataSource<Song>();
   mainContent = 'song-list';
   @HostBinding('style.top') top = '64px';

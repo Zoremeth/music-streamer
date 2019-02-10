@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="mat-elevation-z6">
+<mat-toolbar class="mat-elevation-z6" color="primary">
   <mat-toolbar-row class="bottomnav-flexbox">
     <div class="playback-buttons">
       <button mat-icon-button (click)="this.musicService.skipPrevious()">
@@ -19,11 +19,12 @@
       <button mat-icon-button (click)="toggleMute()">
         <mat-icon>{{muteStatus}}</mat-icon>
       </button>
-      <mat-slider min="0" max="1.0" step="0.05" value="1.0" #volumeSlider (change)="this.musicService.changeVolume(volumeSlider.value)"
+      <mat-slider min="0" max="1.0" step="0.05" value="1.0" #volumeSlider (input)="this.musicService.changeVolume(volumeSlider.value)"
         [disabled]="disabled"></mat-slider>
       <button mat-icon-button (click)="toggleShuffle()">
         <mat-icon>{{playbackType}}</mat-icon>
       </button>
     </div>
+    <button (click)="test()">Test</button>
   </mat-toolbar-row>
 </mat-toolbar>

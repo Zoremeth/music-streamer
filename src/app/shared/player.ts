@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Song } from './song';
 
 const musicPlayerId = 'musicPlayer';
-const jsonUrl = '/api/songs';
+const jsonUrl = '/api/get/songs';
 const musicUrl = '/api/get/song/';
 
 @Injectable({

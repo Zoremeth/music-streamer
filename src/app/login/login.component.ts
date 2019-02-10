@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { LoginService } from './login.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ThemeService } from '../shared/theme';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, public dialog: MatDialog) { }
 
-  ngOnInit() {
-  }
+  constructor(private loginService: LoginService, public dialog: MatDialog, private themeService: ThemeService) { }
+
+  ngOnInit() { }
 
   login(username: string, password: string): void {
     this.loginService.login(username, password);

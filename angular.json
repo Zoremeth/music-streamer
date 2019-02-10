@@ -24,7 +24,9 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/misty-woods-theme.scss"
+              "src/styles.scss",
+              "src/misty-woods.scss",
+              "src/sample-theme.scss"
             ],
             "scripts": []
           },

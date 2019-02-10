@@ -20,7 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatSortModule } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
@@ -49,6 +49,7 @@ import { MatTableModule } from '@angular/material/table';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatSortModule
   ],
   providers: [MusicPlayerService],
   bootstrap: [AppComponent]
