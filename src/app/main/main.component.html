@@ -1,9 +1,9 @@
 <div class="main-flexbox">
-    <div class="filler"></div>
+    <div class="filler mat-elevation-z6"></div>
     <div [class]="mainContent">
-        <mat-form-field class="input-box">
+        <!-- <mat-form-field class="input-box" color="accent">
             <input matInput (keyup)="applyFilter($event.target.value)">
-        </mat-form-field>
+        </mat-form-field> -->
         <table mat-table [dataSource]="songList" matSort class="mat-elevation-z8 song-table">
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
@@ -29,5 +29,5 @@
             <tr mat-row *matRowDef="let song; columns: displayedColumns;" class="data-row"></tr>
         </table>
     </div>
-    <div class="filler"></div>
+    <div class="filler mat-elevation-z6"></div>
 </div>

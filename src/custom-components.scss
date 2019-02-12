@@ -1,0 +1,14 @@
+ @import '~@angular/material/theming';
+ 
+ @mixin custom-components($theme) {
+     $background: map-get($theme, warn);
+     
+     app-login {
+         background-color: mat-color($background);
+     }
+
+     .filler {
+        background-color: mat-color($background);
+    }
+
+ }

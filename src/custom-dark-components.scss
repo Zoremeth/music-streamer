@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+
+
+@mixin custom-dark-components($theme) {
+    .mat-icon {
+        color: white;
+    }
+}

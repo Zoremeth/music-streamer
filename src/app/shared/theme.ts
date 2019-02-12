@@ -9,7 +9,7 @@ export class ThemeService {
   private themeStream: BehaviorSubject<string>;
 
   constructor() {
-    this.themeStream = new BehaviorSubject('theme-light');
+    this.themeStream = new BehaviorSubject('theme-blue');
   }
 
   get theme$() {

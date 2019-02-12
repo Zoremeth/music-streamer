@@ -1,8 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z6">
   <mat-toolbar-row class="toolbar-flexbox">
     <div class="input-box"></div>
     <div class="toolbar-main-buttons">
-      <span>{{this.musicService.artist + " - " + this.musicService.title}}</span>
+      <span *ngIf="this.musicService.artist">{{this.musicService.artist + " - " + this.musicService.title}}</span>
     </div>
     <div class="toolbar-other-buttons">
       <button mat-button [matMenuTriggerFor]="menu">{{currentUser | uppercase }}</button>

@@ -53,7 +53,7 @@ export class BottomnavComponent implements OnInit {
   }
 
   test(): void {
-    this.themeService.setTheme('theme-dark');
+    this.themeService.setTheme('theme-red');
   }
 }
 

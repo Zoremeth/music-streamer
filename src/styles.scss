@@ -3,13 +3,31 @@
 @include mat-core();
 
 @import 'misty-woods.scss';
-@import 'sample-theme.scss';
+@import 'red-theme.scss';
+@import 'custom-components.scss';
+@import 'purple-theme.scss';
+@import 'custom-dark-components.scss';
 
-
-.theme-light {
-    @include angular-material-theme($misty-woods-theme);
+@mixin custom-components-theme($theme) {
+    @include custom-components($theme)
 }
 
-.theme-dark {
-    @include angular-material-theme($sample-theme);
+@mixin custom-dark-components-theme($theme) {
+    @include custom-dark-components($theme)
+}
+
+.theme-blue {
+    @include angular-material-theme($misty-woods-theme);
+    @include custom-components-theme($misty-woods-theme);
+}
+
+.theme-red {
+    @include angular-material-theme($red-theme);
+    @include custom-components-theme($red-theme);
+    @include custom-dark-components($red-theme);
+}
+
+.theme-purple {
+    @include angular-material-theme($purple-theme);
+    @include custom-components-theme($purple-theme);
 }
